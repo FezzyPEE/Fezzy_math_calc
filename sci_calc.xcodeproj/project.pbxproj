@@ -23,6 +23,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7B4A142E2708C51F003BE660 /* fezzy_io.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fezzy_io.h; sourceTree = "<group>"; };
+		7B4A142F2708C52D003BE660 /* fezzy_math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fezzy_math.h; sourceTree = "<group>"; };
+		7B4A14302708C53B003BE660 /* fezzy_matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fezzy_matrix.h; sourceTree = "<group>"; };
+		7B4A14312708C547003BE660 /* fezzy_complex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fezzy_complex.h; sourceTree = "<group>"; };
+		7B4A14332708C684003BE660 /* fezzy_poly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fezzy_poly.h; sourceTree = "<group>"; };
+		7B4A14352708C73F003BE660 /* fezzy_phy_sys_com.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fezzy_phy_sys_com.h; sourceTree = "<group>"; };
+		7B4A14362708C75D003BE660 /* fezzy_angles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fezzy_angles.h; sourceTree = "<group>"; };
+		7B4A14372708C8E3003BE660 /* fezzy_phy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fezzy_phy.h; sourceTree = "<group>"; };
+		7B4A14382708C91B003BE660 /* fezzy_sta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fezzy_sta.h; sourceTree = "<group>"; };
+		7B4A14392708C9B2003BE660 /* homework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = homework.h; sourceTree = "<group>"; };
 		7BB97108251C486A0047C03E /* sci_calc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sci_calc; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BB9710B251C486A0047C03E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -38,6 +48,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B4A143A2708CA36003BE660 /* headings */ = {
+			isa = PBXGroup;
+			children = (
+				7B4A14362708C75D003BE660 /* fezzy_angles.h */,
+				7B4A142F2708C52D003BE660 /* fezzy_math.h */,
+				7B4A142E2708C51F003BE660 /* fezzy_io.h */,
+				7B4A14352708C73F003BE660 /* fezzy_phy_sys_com.h */,
+				7B4A14382708C91B003BE660 /* fezzy_sta.h */,
+				7B4A14312708C547003BE660 /* fezzy_complex.h */,
+				7B4A14372708C8E3003BE660 /* fezzy_phy.h */,
+				7B4A14332708C684003BE660 /* fezzy_poly.h */,
+				7B4A14302708C53B003BE660 /* fezzy_matrix.h */,
+			);
+			name = headings;
+			sourceTree = "<group>";
+		};
 		7BB970FF251C486A0047C03E = {
 			isa = PBXGroup;
 			children = (
@@ -57,7 +83,9 @@
 		7BB9710A251C486A0047C03E /* sci_calc */ = {
 			isa = PBXGroup;
 			children = (
+				7B4A143A2708CA36003BE660 /* headings */,
 				7BB9710B251C486A0047C03E /* main.cpp */,
+				7B4A14392708C9B2003BE660 /* homework.h */,
 			);
 			path = sci_calc;
 			sourceTree = "<group>";
