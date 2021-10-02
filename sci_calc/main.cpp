@@ -93,7 +93,7 @@ sys2D_m_cen sys1;
 LD ans;
 int a[300][300];
 
-
+#include "homework.h"
 
 int main() {
 //	LD h=0.5;
