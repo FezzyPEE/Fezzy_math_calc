@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <cstring>
 #include <unistd.h>
+#include <vector>
 
 using namespace std;
 
@@ -70,7 +71,6 @@ LD cos(){
 }
 //----------------------------------------------/angles
 
-
 //----------------------------------------------PHY
 LD phy_M,phy_Ekt;
 #include "fezzy_phy.h"
@@ -120,6 +120,22 @@ int main() {
 	Q3();
 	Q4();
 	Q5();
+	Q6();
+	Q7();
+	Q8();
+	Q9();
+	Q10();
+	Q11();
+	Q12();
+	Q13();
+	Q14();
+	Q15();
+	Q16();
+	Q17();
+	Q18();
+	Q19();
+	Q20();
+	
 	
 	return 0;
 }

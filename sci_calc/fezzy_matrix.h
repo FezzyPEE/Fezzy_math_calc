@@ -65,8 +65,8 @@ matrix copysize(matrix mat){
 	return ans;
 }
 void view(matrix mat){
-	printf("%d %d\n",mat.n,mat.m);
-	printf("\\begin{bmatrix}\n");
+	printf("$%d\\times%d$ matrix:\n",mat.n,mat.m);
+	printf("$$\n\\begin{bmatrix}\n");
 	for (int i=0; i<mat.n; ++i) {
 		for (int j=0; j<mat.m; ++j) {
 			printf("%8.3Lf",mat.a[i][j]);
@@ -76,7 +76,7 @@ void view(matrix mat){
 		}
 		printf("\\\\\n");
 	}
-	printf("\\end{bmatrix}\n");
+	printf("\\end{bmatrix}\n$$\n");
 }
 matrix operator+(matrix a, matrix b){
 	matrix ans;
