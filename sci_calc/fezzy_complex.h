@@ -42,8 +42,7 @@ complex3 crossp(complex3 a, complex3 b){
 	return ans;
 }
 LD dis(complex3 a, complex3 b){
-	a=a-b;
-	return sqr(a.x)+sqr(a.y)+sqr(a.z);
+	return mag(a-b);
 }
 
 struct complex2{
