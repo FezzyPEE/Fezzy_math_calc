@@ -41,7 +41,10 @@ complex3 crossp(complex3 a, complex3 b){
 	ans.z=a.x*b.y-a.y*b.x;
 	return ans;
 }
-
+LD dis(complex3 a, complex3 b){
+	a=a-b;
+	return sqr(a.x)+sqr(a.y)+sqr(a.z);
+}
 
 struct complex2{
 	LD x,y;
