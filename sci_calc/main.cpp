@@ -19,10 +19,12 @@ using namespace std;
 typedef long double LD;
 typedef long long LL;
 
+
 const LD Pi=3.1415926535897932384626433832795028841971693993751;
 const LD g=9.8;
 const LD R=8.3144621;
 const LD atm=101325;
+const LD au_to_kcalPmol=627.509474;
 const LD RES=1e-8;
 
 const int MPL=5;//maxpolylevel
@@ -116,7 +118,19 @@ int main() {
 //	view(a*b);
 	
 	
-	Q1();
+//	Q1();
+//	Q2();
+//	Q3();
+//	Q4();
+//	Q5();
+//	Q6();
+	
+//	Q12();
+	
+//	Q15();
+	
+//	Q19();
+	Q20();
 	
 	return 0;
 }

@@ -11,7 +11,7 @@
 
 const int MATSIZE=8;
 struct matrix {
-	unsigned n,m;
+	unsigned n,m,rk=-1;
 	LD a[MATSIZE][MATSIZE];
 };
 matrix matmake(int n,int m, LD a[]){
@@ -158,6 +158,34 @@ matrix trans(matrix a){
 	}
 	return ans;
 }
+matrix matget(matrix mat,int x,int y,int n,int m){
+	matrix ans = matmake(n, m);
+	for (int i=x; i<x+n; ++i) {
+		for (int j=y; j<y+m; ++j) {
+			ans.a[i-x][j-y]=mat.a[i][j];
+		}
+	}
+	return ans;
+}
+matrix matbind_r(matrix mup, matrix mdown){
+	if (mup.m!=mdown.m) {
+		printf("!!!Error binding.!!!\n");
+		return mup;
+	}
+	int un=mup.n,dn=mdown.n,mm=mup.m;
+	matrix ans=matmake(un+dn, mm);
+	for (int i=0; i<un; ++i) {
+		for (int j=0; j<mm; ++j) {
+			ans.a[i][j]=mup.a[i][j];
+		}
+	}
+	for (int i=0; i<dn; ++i) {
+		for (int j=0; j<mm; ++j) {
+			ans.a[un+i][j]=mdown.a[i][j];
+		}
+	}
+	return ans;
+}
 matrix solve(matrix mat){
 	matrix t=copysize(mat);
 	int nn=mat.n;
@@ -174,11 +202,11 @@ matrix solve(matrix mat){
 			for (int j=mm-1; j>=0; --j) {
 				t.a[i][j]/=t.a[i][head];
 			}//row normalize
-			printf("%d %d\n",i,head);
+//			printf("%d %d\n",i,head);
 //			view(t);
 			for (int k=0; k<nn; ++k) if (k!=i) {
 				u=t.a[k][head];
-				printf("%d %Lf\n",k,u);
+//				printf("%d %Lf\n",k,u);
 				for (int j=0; j<mm; ++j) {
 					t.a[k][j]-=u*t.a[i][j];
 //					view(t);
@@ -255,7 +283,7 @@ matrix inve(matrix a){
 		if (abs(a.a[i][i])<RES) {
 			if (i==nn-1) {
 				printf("The matrix is not invertable.\n");
-				return i_matrix(nn);
+				return solve(a);
 			}
 			for (int k=i+1; k<nn; ++k) {
 				if (abs(a.a[k][i])>RES) {
@@ -263,7 +291,7 @@ matrix inve(matrix a){
 					row_swap(ans, i, k);
 				}else if (k==nn-1){
 					printf("The matrix is not invertable.\n");
-					return i_matrix(nn);
+					return solve(a);
 				}
 			}
 		}
@@ -292,5 +320,42 @@ matrix elem(int n,int i,int j,LD beta){
 matrix rev_elem(int n,int i,int j,LD beta){
 	return elem(n, i, j, -beta);
 }
+int matrank(matrix &mat){
+//	if (mat.rk!=-1) {
+//		return mat.rk;
+//	}
+	matrix a=solve(mat);
+	int i;
+	bool b=0;
+	for (i=0; i<a.n; ++i) {
+		b=0;
+		for (int j=0; j<a.m; ++j) {
+			b|=(a.a[i][j]>RES);
+		}
+		if (!b) {
+			break;
+		}
+	}
+	mat.rk=i;
+	return i;
+}
+matrix column_space(matrix mat){
+	matrank(mat);
+	if (mat.m<=mat.rk) {
+		return matmake(1, 1, (LD[]){0});
+	}
+	return matbind_r(-1*matget(solve(mat), 0, mat.rk, mat.rk, mat.m-mat.rk), i_matrix(mat.m-mat.rk));
+}
+matrix row_basis(matrix mat){
+	matrix ans=matmake(0, mat.m),tmp;
+	for (int i=0; i<mat.n; ++i) {
+		tmp=matbind_r(ans, matget(mat, i, 0, 1, mat.m));
+		if (matrank(tmp)>matrank(ans)) {
+			ans=tmp;
+		}
+	}
+	return ans;;
+}
+
 
 #endif /* fezzy_matrix_h */

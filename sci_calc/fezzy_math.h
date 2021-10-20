@@ -9,6 +9,7 @@
 #ifndef fezzy_math_h
 #define fezzy_math_h
 
+
 int ksm(int x,int p){
 	int u=x,ans=1;
 	while (p) {
