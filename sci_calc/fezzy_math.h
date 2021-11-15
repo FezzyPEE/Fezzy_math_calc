@@ -116,4 +116,5 @@ bool not0(LD x){
 	return (abs(x)<RES)?0:1;
 }
 
+
 #endif /* fezzy_math_h */

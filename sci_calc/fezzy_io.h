@@ -25,5 +25,14 @@ void priLD(LD x,int w){
 	//printf("%s",s.c_str());
 	printf(s.c_str(),x);
 }
+void prl(){
+	putchar('\n');
+}
+void view(LD x){
+	priLD(x);
+}
+void view(int x){
+	printf("%d\n",x);
+}
 
 #endif /* fezzy_io_h */

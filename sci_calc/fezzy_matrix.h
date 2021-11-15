@@ -10,8 +10,9 @@
 #define fezzy_matrix_h
 
 const int MATSIZE=8;
+char sep='\n';
 struct matrix {
-	unsigned n,m,rk=-1;
+	unsigned n,m,rk=-1,rex=0;
 	LD a[MATSIZE][MATSIZE];
 };
 matrix matmake(int n,int m, LD a[]){
@@ -65,8 +66,8 @@ matrix copysize(matrix mat){
 	return ans;
 }
 void view(matrix mat){
-	printf("$%d\\times%d$ matrix:\n",mat.n,mat.m);
-	printf("$$\n\\begin{bmatrix}\n");
+//	printf("$%d\\times%d$ matrix:\n",mat.n,mat.m);
+	printf("\\begin{bmatrix}\n");
 	for (int i=0; i<mat.n; ++i) {
 		for (int j=0; j<mat.m; ++j) {
 			printf("%8.3Lf",mat.a[i][j]);
@@ -76,7 +77,8 @@ void view(matrix mat){
 		}
 		printf("\\\\\n");
 	}
-	printf("\\end{bmatrix}\n$$\n");
+	printf("\\end{bmatrix}");
+	putchar(sep);
 }
 matrix operator+(matrix a, matrix b){
 	matrix ans;
@@ -165,6 +167,8 @@ matrix matget(matrix mat,int x,int y,int n,int m){
 			ans.a[i-x][j-y]=mat.a[i][j];
 		}
 	}
+//	printf("matget: ");
+//	view(ans);
 	return ans;
 }
 matrix matbind_r(matrix mup, matrix mdown){
@@ -184,6 +188,27 @@ matrix matbind_r(matrix mup, matrix mdown){
 			ans.a[un+i][j]=mdown.a[i][j];
 		}
 	}
+	return ans;
+}
+matrix matbind_c(matrix mleft, matrix mright){
+	if (mleft.n!=mright.n) {
+		printf("!!!Error binding.!!!\n");
+		return mleft;
+	}
+	int le=mleft.m,ri=mright.m,nn=mleft.n;
+	matrix ans=matmake(nn, le+ri);
+	for (int j=0; j<le; ++j) {
+		for (int i=0; i<nn; ++i) {
+			ans.a[i][j]=mleft.a[i][j];
+		}
+	}
+	for (int j=0; j<ri; ++j) {
+		for (int i=0; i<nn; ++i) {
+			ans.a[i][le+j]=mright.a[i][j];
+		}
+	}
+//	printf("mbind: ");
+//	view(ans);
 	return ans;
 }
 matrix solve(matrix mat){
@@ -339,7 +364,7 @@ int matrank(matrix &mat){
 	mat.rk=i;
 	return i;
 }
-matrix column_space(matrix mat){
+matrix null_space(matrix mat){
 	matrank(mat);
 	if (mat.m<=mat.rk) {
 		return matmake(1, 1, (LD[]){0});
@@ -355,7 +380,90 @@ matrix row_basis(matrix mat){
 		}
 	}
 	return ans;;
+}//finding independent rows
+matrix colum_basis(matrix mat){
+	return trans(row_basis(trans(mat)));
 }
-
+matrix transi_matrix(matrix tar, matrix ori){
+	return inve(tar)*ori;
+}
+void view_by_colum(matrix mat){
+	sep=',';
+	for (int j=0; j<mat.m; ++j) {
+		if (j==mat.m-1) {
+			sep='\n';
+		}
+		view(matget(mat, 0, j, mat.n, 1));
+	}
+	prl();
+}
+void view_by_row(matrix mat){
+	sep=',';
+	for (int i=0; i<mat.n; ++i) {
+		if (i==mat.n-1) {
+			sep='\n';
+		}
+		view(matget(mat, i, 0, 1, mat.m));
+	}
+	prl();
+}
+LD det(matrix a){
+	LD ans=1;
+	int index[MATSIZE];
+	for (int i=0; i<MATSIZE; ++i) {
+		index[i]=i;
+	}
+	if (a.n!=a.m) {
+		printf("The matrix is not a square matrix.");
+	}
+	int nn=a.n;
+	LD u;
+	for (int i=0; i<nn; ++i) {
+		if (abs(a.a[i][i])<RES) {
+			if (i==nn-1) {
+				return 0;
+			}
+			for (int k=i+1; k<nn; ++k) {
+				if (abs(a.a[k][i])>RES) {
+					row_swap(a, i, k);
+					swap(index[i], index[k]);
+				}else if (k==nn-1){
+					return 0;
+				}
+			}
+		}
+		u=a.a[i][i];
+		ans*=u;
+		for (int j=0; j<nn; ++j) {
+			a.a[i][j]/=u;
+		}
+//		view(a);
+		for (int k=0; k<nn; ++k) if (k!=i) {
+			u=a.a[k][i];
+			for (int j=0; j<nn; ++j) {
+				a.a[k][j]-=u*a.a[i][j];
+			}
+		}
+//		view(a);
+	}
+//	view(a);
+	return ans*(pow(-1, inve_pair(nn,index)));
+}
+void cramers(matrix mat,matrix b){
+	if (b.m!=1||b.n!=mat.m) {
+		printf("Incorrect vec b in Cramers.\n");
+		exit(1);
+	}
+	matrix temp;
+	LD deta=det(mat);
+	if (deta==0) {
+		printf("Singular matrix in Cramers.\n");
+	}
+	for (int i=0; i<mat.m; ++i) {
+		temp=matbind_c(matget(mat, 0, 0, mat.n, i),b);
+		temp=matbind_c(temp, matget(mat, 0, i+1, mat.n, mat.m-1-i));
+		printf("A%2d=%8.4Lf; b%2d=%8.4Lf\n",i+1,det(temp),i+1,det(temp)/deta);
+	}
+}
 
 #endif /* fezzy_matrix_h */

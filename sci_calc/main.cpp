@@ -31,6 +31,8 @@ const int MPL=5;//maxpolylevel
 
 const int Solve_Depth=8;
 
+#include "fezzy_lib.h"
+
 //---------------------------------------------IO
 #include "fezzy_io.h"
 //---------------------------------------------/IO
@@ -99,38 +101,29 @@ int a[300][300];
 
 int main() {
 //	LD h=0.5;
-//	matrix a= matmake(3, 4, (LD[]){
-//		1,-1,2,1,
-//		2,1,1,8,
-//		1,1,0,5
-//	});
-//	matrix b= matmake(2, 2, (LD[]){
-//		1,0.5,
-//		0.5,-4
-//	});
-//	view(a);
+	matrix a= matmake(3, 3, (LD[]){
+		2,1,-3,
+		4,5,1,
+		-2,-1,4
+	});
+	matrix b= matmake(3, 1, (LD[]){
+		0,
+		8,
+		2
+	});
+	view(a);
 //	view(solve(a));
-//	view(b);
+	view(b);
 //	matrix c=leftproduct(a+b, a-b);
 //	view(c);
 //	view(a*b*a);
 //	view(b*a);
 //	view(a*b);
+	cramers(a, b);
+	view(inve(a)*b);
 	
 	
-//	Q1();
-//	Q2();
-//	Q3();
-//	Q4();
-//	Q5();
-//	Q6();
 	
-//	Q12();
-	
-//	Q15();
-	
-//	Q19();
-	Q20();
 	
 	return 0;
 }
