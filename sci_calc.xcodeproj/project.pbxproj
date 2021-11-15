@@ -23,6 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7B0796F027423E6200ED982D /* fezzy_lib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fezzy_lib.h; sourceTree = "<group>"; };
 		7B4A142E2708C51F003BE660 /* fezzy_io.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fezzy_io.h; sourceTree = "<group>"; };
 		7B4A142F2708C52D003BE660 /* fezzy_math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fezzy_math.h; sourceTree = "<group>"; };
 		7B4A14302708C53B003BE660 /* fezzy_matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fezzy_matrix.h; sourceTree = "<group>"; };
@@ -53,6 +54,7 @@
 			children = (
 				7B4A14362708C75D003BE660 /* fezzy_angles.h */,
 				7B4A142F2708C52D003BE660 /* fezzy_math.h */,
+				7B0796F027423E6200ED982D /* fezzy_lib.h */,
 				7B4A142E2708C51F003BE660 /* fezzy_io.h */,
 				7B4A14352708C73F003BE660 /* fezzy_phy_sys_com.h */,
 				7B4A14382708C91B003BE660 /* fezzy_sta.h */,
