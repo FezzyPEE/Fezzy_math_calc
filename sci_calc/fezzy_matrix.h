@@ -12,7 +12,7 @@
 const int MATSIZE=8;
 char sep='\n';
 struct matrix {
-	unsigned n,m,rk=-1,rex=0;
+	unsigned n,m,rk=-1;
 	LD a[MATSIZE][MATSIZE];
 };
 matrix matmake(int n,int m, LD a[]){
@@ -70,7 +70,7 @@ void view(matrix mat){
 	printf("\\begin{bmatrix}\n");
 	for (int i=0; i<mat.n; ++i) {
 		for (int j=0; j<mat.m; ++j) {
-			printf("%8.3Lf",mat.a[i][j]);
+			printf("%8.4Lf",mat.a[i][j]);
 			if (j!=mat.m-1){
 				printf("&");
 			}
@@ -427,7 +427,8 @@ LD det(matrix a){
 				if (abs(a.a[k][i])>RES) {
 					row_swap(a, i, k);
 					swap(index[i], index[k]);
-				}else if (k==nn-1){
+				}else if (k==nn){
+					view(a);
 					return 0;
 				}
 			}
@@ -446,8 +447,25 @@ LD det(matrix a){
 		}
 //		view(a);
 	}
-//	view(a);
+	view(a);
 	return ans*(pow(-1, inve_pair(nn,index)));
+}
+LD cofactor(matrix mat, int i, int j){
+	matrix a=matbind_c(matbind_r(matget(mat, 0, 0, i, j),
+								 matget(mat, i+1, 0, mat.n-i-1, j)),
+					   matbind_r(matget(mat, 0, j+1, i, mat.m-j-1),
+								 matget(mat, i+1, j+1, mat.n-i-1, mat.m-j-1)));
+	return det(a);
+}
+matrix adj(matrix mat){
+	matrix ans=copysize(mat);
+	for (int i=0; i<mat.n; ++i) {
+		for (int j=0; j<mat.m; ++j) {
+			ans.a[i][j]=cofactor(mat, i, j);
+			if ((i+j)%2) ans.a[i][j]*=-1;
+		}
+	}
+	return trans(ans);
 }
 void cramers(matrix mat,matrix b){
 	if (b.m!=1||b.n!=mat.m) {
@@ -462,8 +480,20 @@ void cramers(matrix mat,matrix b){
 	for (int i=0; i<mat.m; ++i) {
 		temp=matbind_c(matget(mat, 0, 0, mat.n, i),b);
 		temp=matbind_c(temp, matget(mat, 0, i+1, mat.n, mat.m-1-i));
-		printf("A%2d=%8.4Lf; b%2d=%8.4Lf\n",i+1,det(temp),i+1,det(temp)/deta);
+		printf("detA_%2d=%8.4Lf, b_%2d=%8.4Lf,\n",i+1,det(temp),i+1,det(temp)/deta);
 	}
+}
+void format_det(matrix a){
+	printf("$$\ndet(");
+	view(a);
+	printf(")=%.4Lf\n$$\n",det(a));
+}
+matrix least_square(matrix a, matrix b){
+//	robust needed here.
+	return inve(trans(a)*a)*trans(a)*b;
+}
+matrix P(matrix a){
+	return a*inve(trans(a)*a)*trans(a);
 }
 
 #endif /* fezzy_matrix_h */

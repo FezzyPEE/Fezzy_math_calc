@@ -115,6 +115,9 @@ LD sign(LD x){
 bool not0(LD x){
 	return (abs(x)<RES)?0:1;
 }
+LD geo_avg(LD x,LD y){
+	return sqrt(sqr(x)+sqr(y));
+}
 
 
 #endif /* fezzy_math_h */

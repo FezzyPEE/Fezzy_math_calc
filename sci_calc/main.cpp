@@ -101,29 +101,28 @@ int a[300][300];
 
 int main() {
 //	LD h=0.5;
-	matrix a= matmake(3, 3, (LD[]){
-		2,1,-3,
-		4,5,1,
-		-2,-1,4
+	matrix a= matmake(2, 2, (LD[]){
+		1,1,
+		1,0
 	});
-	matrix b= matmake(3, 1, (LD[]){
-		0,
-		8,
-		2
+	
+	matrix b= matmake(1, 2, (LD[]){
+		1,
+		1
 	});
-	view(a);
+
 //	view(solve(a));
-	view(b);
+//	view(adj(a));
 //	matrix c=leftproduct(a+b, a-b);
 //	view(c);
 //	view(a*b*a);
-//	view(b*a);
+	
+//	matrix c=b*ksm(a, 5);
+//	view(c);
 //	view(a*b);
-	cramers(a, b);
-	view(inve(a)*b);
-	
-	
-	
+
+//	Q3();
+	Q5();
 	
 	return 0;
 }
